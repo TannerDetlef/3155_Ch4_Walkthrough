@@ -13,7 +13,15 @@ def show
   # will render app/views/movies/show.html.haml by default
 end
 
--# add to end of index.html.haml
- 
-= link_to 'Add new movie', new_movie_path
+def new
+  # default: render 'new' template
+end
+
+# in movies_controller.rb
+def create
+  @movie = Movie.create!(params[:movie])
+  flash[:notice] = "#{@movie.title} was successfully created."
+  flash[:warning] = "There was an error adding #{@movie.title}!"
+  redirect_to movies_path
+end
 
